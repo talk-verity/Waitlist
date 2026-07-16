@@ -48,6 +48,10 @@ body {
     z-index: 0;
     pointer-events: none;
     overflow: hidden;
+    /* Fallback if WebGL/React fails */
+    background: radial-gradient(ellipse at 20% 20%, #72D6B2 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, #4CC59D 0%, transparent 50%),
+                #F8FCFB;
 }
 
 #bg-root [data-paper-shader],

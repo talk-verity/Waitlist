@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && (cp config.js dist/config.js || true)",
+    "prebuild": "node scripts/generate-config.js",
+    "build": "vite build && cp config.js dist/config.js",
     "preview": "vite preview"
   },
   "repository": {

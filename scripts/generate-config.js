@@ -4,12 +4,11 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const url = process.env.SUPABASE_URL;
-const anonKey = process.env.SUPABASE_ANON_KEY;
+const url = process.env.SUPABASE_URL || '';
+const anonKey = process.env.SUPABASE_ANON_KEY || '';
 
 if (!url || !anonKey) {
-  console.error('Missing SUPABASE_URL or SUPABASE_ANON_KEY');
-  process.exit(1);
+  console.warn('Missing SUPABASE_URL or SUPABASE_ANON_KEY — writing empty placeholders (waitlist form will not submit)');
 }
 
 const contents = `window.SUPABASE_CONFIG = {

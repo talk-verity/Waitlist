@@ -17,6 +17,9 @@ const BgApp = () => (
 
 const bgContainer = document.getElementById('bg-root');
 if (bgContainer) {
-  const root = createRoot(bgContainer);
-  root.render(<BgApp />);
+  try {
+    createRoot(bgContainer).render(<BgApp />);
+  } catch (err) {
+    console.error('MeshGradient failed to mount:', err);
+  }
 }

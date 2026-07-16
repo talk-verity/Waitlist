@@ -1,3 +1,5 @@
+import './main.jsx';
+
 // 1. Form Submission
 const form = document.getElementById('waitlist-form');
 const successMsg = document.getElementById('success-message');
