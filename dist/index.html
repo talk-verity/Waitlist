@@ -14,8 +14,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
         rel="stylesheet">
-  <script type="module" crossorigin src="/assets/index-C6KRZzOQ.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-CUNFseIf.css">
+  <script type="module" crossorigin src="/assets/index-BQZIXDLN.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-rsPDnvHk.css">
 </head>
 
 <body>
@@ -49,7 +49,8 @@
                         <p>Sign up now for early notification upon launch.</p>
                     </div>
                     <form id="waitlist-form" class="waitlist-form">
-                        <input type="tel" id="phone" placeholder="Enter your Phone Number" required>
+                        <div id="phone-error" class="error-message hidden"></div>
+                        <input type="tel" id="phone" placeholder="Enter your Phone Number" required maxlength="15" inputmode="numeric" pattern="[0-9]*">
                         <button type="submit" class="submit-btn magnetic">Join Waitlist</button>
                     </form>
                     <div id="success-message" class="success-message hidden">
@@ -131,7 +132,7 @@
         <div class="modal-content tilt-card">
             <h2 class="headline">Thank you for showing your interest.</h2>
             <p class="sub-headline">You're officially on the list. We'll be in touch soon.</p>
-            <button id="close-modal" type="button" class="submit-btn magnetic">Close</button>
+            <button id="close-modal" type="button" class="submit-btn">Close</button>
         </div>
     </div>
 </body>

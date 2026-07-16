@@ -20,51 +20,99 @@ if (window.supabase && supabaseUrl && supabaseKey) {
 const submitBtn = document.querySelector('#waitlist-form .submit-btn');
 const modal = document.getElementById('success-modal');
 const closeModalBtn = document.getElementById('close-modal');
+const phoneInput = document.getElementById('phone');
+const phoneError = document.getElementById('phone-error');
+
+if (phoneInput) {
+    phoneInput.addEventListener('input', (e) => {
+        // Remove non-digit characters
+        let value = e.target.value.replace(/\D/g, '');
+        // Limit to 15 digits
+        if (value.length > 15) {
+            value = value.slice(0, 15);
+        }
+        e.target.value = value;
+        
+        // Hide the error message when they fix the input (valid length)
+        if (value.length >= 7) {
+            if (phoneError) {
+                phoneError.classList.add('hidden');
+            }
+        }
+    });
+}
 
 if (form) {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const phone = document.getElementById('phone').value;
+        const phone = phoneInput ? phoneInput.value : '';
         
-        if (phone && phone.length >= 7) {
-            // Visual loading state
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = 'Joining...';
-            submitBtn.style.opacity = '0.7';
-            submitBtn.disabled = true;
-
-            // Insert phone into Supabase 'waitlist' table
-            let error = null;
-            if (supabase) {
-                const { error: sbError } = await supabase
-                    .from('waitlist')
-                    .insert([{ phone: phone }]);
-                error = sbError;
-            } else {
-                error = new Error('Supabase client is not initialized due to missing URL or Anon Key.');
+        // Validation: Must be only digits and between 7 and 15 digits
+        const isOnlyDigits = /^[0-9]+$/.test(phone);
+        if (!phone || phone.length < 7 || phone.length > 15 || !isOnlyDigits) {
+            if (phoneError) {
+                phoneError.textContent = 'Please enter a valid phone number (7 to 15 digits).';
+                phoneError.classList.remove('hidden');
             }
+            return;
+        }
 
-            if (error) {
-                console.error('Supabase Error:', error);
+        // Hide error message if active
+        if (phoneError) {
+            phoneError.classList.add('hidden');
+        }
+        
+        // Visual loading state
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Joining...';
+        submitBtn.style.opacity = '0.7';
+        submitBtn.disabled = true;
+
+        const startTime = Date.now();
+
+        // Insert phone into Supabase 'waitlist' table
+        let error = null;
+        if (supabase) {
+            const { error: sbError } = await supabase
+                .from('waitlist')
+                .insert([{ phone: phone }]);
+            error = sbError;
+        } else {
+            error = new Error('Supabase client is not initialized due to missing URL or Anon Key.');
+        }
+
+        // Calculate elapsed time and ensure at least 1000ms delay
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = 1000 - elapsedTime;
+        if (remainingTime > 0) {
+            await new Promise(resolve => setTimeout(resolve, remainingTime));
+        }
+
+        if (error) {
+            console.error('Supabase Error:', error);
+            if (phoneError) {
+                phoneError.textContent = 'There was an issue joining the waitlist. Please try again.';
+                phoneError.classList.remove('hidden');
+            } else {
                 alert('There was an issue joining the waitlist. Please try again.');
-                submitBtn.textContent = originalText;
-                submitBtn.style.opacity = '1';
-                submitBtn.disabled = false;
-            } else {
-                // Show the success modal!
-                if (modal) {
-                    modal.classList.add('active');
-                } else {
-                    form.style.display = 'none';
-                    if (successMsg) successMsg.classList.remove('hidden');
-                }
-                
-                // Optionally reset the form
-                form.reset();
-                submitBtn.textContent = originalText;
-                submitBtn.style.opacity = '1';
-                submitBtn.disabled = false;
             }
+            submitBtn.textContent = originalText;
+            submitBtn.style.opacity = '1';
+            submitBtn.disabled = false;
+        } else {
+            // Show the success modal!
+            if (modal) {
+                modal.classList.add('active');
+            } else {
+                form.style.display = 'none';
+                if (successMsg) successMsg.classList.remove('hidden');
+            }
+            
+            // Optionally reset the form
+            form.reset();
+            submitBtn.textContent = originalText;
+            submitBtn.style.opacity = '1';
+            submitBtn.disabled = false;
         }
     });
 }

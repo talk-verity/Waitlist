@@ -48,7 +48,8 @@
                         <p>Sign up now for early notification upon launch.</p>
                     </div>
                     <form id="waitlist-form" class="waitlist-form">
-                        <input type="tel" id="phone" placeholder="Enter your Phone Number" required>
+                        <div id="phone-error" class="error-message hidden"></div>
+                        <input type="tel" id="phone" placeholder="Enter your Phone Number" required maxlength="15" inputmode="numeric" pattern="[0-9]*">
                         <button type="submit" class="submit-btn magnetic">Join Waitlist</button>
                     </form>
                     <div id="success-message" class="success-message hidden">
@@ -131,7 +132,7 @@
         <div class="modal-content tilt-card">
             <h2 class="headline">Thank you for showing your interest.</h2>
             <p class="sub-headline">You're officially on the list. We'll be in touch soon.</p>
-            <button id="close-modal" type="button" class="submit-btn magnetic">Close</button>
+            <button id="close-modal" type="button" class="submit-btn">Close</button>
         </div>
     </div>
 </body>
