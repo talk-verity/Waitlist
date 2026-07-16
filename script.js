@@ -7,8 +7,14 @@ const successMsg = document.getElementById('success-message');
 // Initialize Supabase (credentials in gitignored config.js)
 const { url: supabaseUrl, anonKey: supabaseKey } = window.SUPABASE_CONFIG || {url: '', anonKey: ''};
 let supabase;
-if (window.supabase) {
-    supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+if (window.supabase && supabaseUrl && supabaseKey) {
+    try {
+        supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    } catch (err) {
+        console.error('Failed to initialize Supabase client:', err);
+    }
+} else {
+    console.warn('Supabase URL or Anon Key is missing. Waitlist submission will not work.');
 }
 
 const submitBtn = document.querySelector('#waitlist-form .submit-btn');
@@ -34,6 +40,8 @@ if (form) {
                     .from('waitlist')
                     .insert([{ phone: phone }]);
                 error = sbError;
+            } else {
+                error = new Error('Supabase client is not initialized due to missing URL or Anon Key.');
             }
 
             if (error) {
