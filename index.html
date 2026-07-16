@@ -1,140 +1,462 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<script
-  src="https://js.sentry-cdn.com/8385f7dd1aec0ed0f26cfae3c7a1bb4d.min.js"
-  crossorigin="anonymous"
-></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waitlist - Verity</title>
-    <meta name="description" content="Join the waitlist for Verity.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@400;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <script
+    src="https://js.sentry-cdn.com/8385f7dd1aec0ed0f26cfae3c7a1bb4d.min.js"
+    crossorigin="anonymous"
+  ></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verity - Waitlist</title>
+  <meta name="description" content="Join the waitlist for Verity.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&family=Inter:wght@400;500;600;700&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body.intro-active {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #0b0f19;
+    }
+
+    #intro-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #0b0f19;
+      z-index: 99999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .intro-container {
+      position: relative;
+      width: 400px;
+      height: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .intro-circle {
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      border: 3px solid rgba(16, 185, 129, 0.8);
+      border-radius: 50%;
+      box-sizing: border-box;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.2), inset 0 0 20px rgba(16, 185, 129, 0.2);
+    }
+
+    .intro-text-container {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .intro-char {
+      position: absolute;
+      font-size: 42px;
+      font-weight: 700;
+      color: #ffffff;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      transform-origin: center center;
+    }
+
+    .intro-final-logo-wrapper {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transform: scale(0.5);
+    }
+
+    .replay-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      opacity: 0;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    .replay-btn:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border-color: rgba(16, 185, 129, 0.4);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+    }
+
+    /* Page styles override during transitions */
+    .top-nav {
+      opacity: 0;
+    }
+    .page-wrapper {
+      opacity: 0;
+    }
+    .site-footer {
+      opacity: 0;
+    }
+    .brand-logo {
+      opacity: 0;
+    }
+    .logo-text {
+      opacity: 0;
+      transform: translateX(-15px);
+    }
+  </style>
 </head>
 
-<body>
-    <div id="bg-root"></div>
-    <header class="top-nav fade-in-down">
-        <div class="nav-logo">
-            <!-- Drop your actual logo image into the folder and name it logo.png -->
-            <img src="logo.png" alt="Verity" class="brand-logo" width="48" height="48" style="object-fit: contain;">
-            <span class="logo-text">verity</span>
-        </div>
-    </header>
+<body class="intro-active">
+  <div id="bg-root"></div>
 
-    <div class="page-wrapper">
-        <main class="main-container">
-
-            <!-- Left Pane: Waitlist -->
-            <section class="left-pane">
-
-                <h1 class="headline fade-in-up" style="animation-delay: 0.1s;">
-                    Good things come to those <span class="italic-highlight">who wait.</span>
-                </h1>
-
-                <p class="sub-headline fade-in-up" style="animation-delay: 0.2s;">
-                    Be the first to experience Verity. Join our waitlist for exclusive access to the future of
-                    communication.
-                </p>
-
-                <div class="waitlist-card fade-in-up tilt-card" style="animation-delay: 0.3s;">
-                    <div class="waitlist-header">
-                        <h2>Join the waitlist</h2>
-                        <p>Sign up now for early notification upon launch.</p>
-                    </div>
-                    <form id="waitlist-form" class="waitlist-form">
-                        <div id="phone-error" class="error-message hidden"></div>
-                        <input type="tel" id="phone" placeholder="Enter your Phone Number" required maxlength="15" inputmode="numeric" pattern="[0-9]*">
-                        <button type="submit" class="submit-btn magnetic">Join Waitlist</button>
-                    </form>
-                    <div id="success-message" class="success-message hidden">
-                        Thanks! You're on the list. 🚀
-                    </div>
-                </div>
-            </section>
-
-            <!-- Right Pane: Features & Socials -->
-            <section class="right-pane glass-card fade-in-up tilt-card" style="animation-delay: 0.4s;">
-                <div class="socials-section">
-                    <p class="socials-label">Follow us on Socials</p>
-                    <div class="social-links">
-                        <a href="#" class="social-pill">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                            </svg>
-                            Instagram
-                        </a>
-                        <a href="#" class="social-pill">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
-                            </svg>
-                            TikTok
-                        </a>
-                    </div>
-                </div>
-
-                <div class="features-section">
-                    <p class="features-label">Core Capabilities</p>
-                    <div class="carousel-container">
-                        <div class="marquee row-1">
-                            <div class="marquee-content">
-                                <span class="feature-pill"><span class="icon">💬</span> AI Conversations</span>
-                                <span class="feature-pill"><span class="icon">📈</span> Track Progress</span>
-                                <span class="feature-pill"><span class="icon">📊</span> Instant Feedback</span>
-                                <span class="feature-pill"><span class="icon">💬</span> AI Conversations</span>
-                                <span class="feature-pill"><span class="icon">📈</span> Track Progress</span>
-                                <span class="feature-pill"><span class="icon">📊</span> Instant Feedback</span>
-                            </div>
-                        </div>
-                        <div class="marquee row-2">
-                            <div class="marquee-content">
-                                <span class="feature-pill"><span class="icon">🔒</span> Privacy First</span>
-                                <span class="feature-pill"><span class="icon">🎓</span> Interactive Coaching</span>
-                                <span class="feature-pill"><span class="icon">⚡</span> Real-time Analysis</span>
-                                <span class="feature-pill"><span class="icon">🔒</span> Privacy First</span>
-                                <span class="feature-pill"><span class="icon">🎓</span> Interactive Coaching</span>
-                                <span class="feature-pill"><span class="icon">⚡</span> Real-time Analysis</span>
-                            </div>
-                        </div>
-                        <div class="marquee row-3">
-                            <div class="marquee-content">
-                                <span class="feature-pill"><span class="icon">🎯</span> Goal Setting</span>
-                                <span class="feature-pill"><span class="icon">🎙️</span> Speech Analysis</span>
-                                <span class="feature-pill"><span class="icon">🏆</span> Leaderboards</span>
-                                <span class="feature-pill"><span class="icon">🎯</span> Goal Setting</span>
-                                <span class="feature-pill"><span class="icon">🎙️</span> Speech Analysis</span>
-                                <span class="feature-pill"><span class="icon">🏆</span> Leaderboards</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
+  <!-- Intro Animation Overlay -->
+  <div id="intro-overlay">
+    <div class="intro-container">
+      <div class="intro-circle" id="circle"></div>
+      <div class="intro-text-container" id="text"></div>
+      <div class="intro-final-logo-wrapper" id="final-logo">
+        <img src="logo.png" alt="Verity Logo"
+          style="max-width: 100%; max-height: 100%; object-fit: contain; filter: drop-shadow(0 0 15px rgba(16, 185, 129, 0.4));" />
+      </div>
     </div>
-    <footer class="site-footer fade-in-up" style="animation-delay: 0.5s;">
-        Questions? Contact us at <a href="mailto:talkverity@gmail.com">talkverity@gmail.com</a>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="config.js"></script>
-    <script type="module" src="script.js"></script>
+  </div>
 
-    <!-- Success Modal -->
-    <div id="success-modal" class="modal-overlay">
-        <div class="modal-content tilt-card">
-            <h2 class="headline">Thank you for showing your interest.</h2>
-            <p class="sub-headline">You're officially on the list. We'll be in touch soon.</p>
-            <button id="close-modal" type="button" class="submit-btn">Close</button>
-        </div>
+  <header class="top-nav">
+    <div class="nav-logo">
+      <img src="logo.png" alt="Verity" class="brand-logo" width="48" height="48" style="object-fit: contain;">
+      <span class="logo-text">verity</span>
     </div>
+  </header>
+
+  <div class="page-wrapper">
+    <main class="main-container">
+      <!-- Left Pane: Waitlist -->
+      <section class="left-pane">
+        <h1 class="headline fade-in-up" style="animation-delay: 0.1s;">
+          Good things come to those <span class="italic-highlight">who wait.</span>
+        </h1>
+        <p class="sub-headline fade-in-up" style="animation-delay: 0.2s;">
+          Be the first to experience Verity. Join our waitlist for exclusive access to the future of communication.
+        </p>
+        <div class="waitlist-card fade-in-up tilt-card" style="animation-delay: 0.3s;">
+          <div class="waitlist-header">
+            <h2>Join the waitlist</h2>
+            <p>Sign up now for early notification upon launch.</p>
+          </div>
+          <form id="waitlist-form" class="waitlist-form">
+            <div id="phone-error" class="error-message hidden"></div>
+            <input type="tel" id="phone" placeholder="Enter your Phone Number" required maxlength="15" inputmode="numeric" pattern="[0-9]*">
+            <button type="submit" class="submit-btn magnetic">Join Waitlist</button>
+          </form>
+          <div id="success-message" class="success-message hidden">
+            Thanks! You're on the list. 🚀
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Pane: Features & Socials -->
+      <section class="right-pane glass-card fade-in-up tilt-card" style="animation-delay: 0.4s;">
+        <div class="socials-section">
+          <p class="socials-label">Follow us on Socials</p>
+          <div class="social-links">
+            <a href="#" class="social-pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+              </svg>
+              Instagram
+            </a>
+            <a href="#" class="social-pill">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+              </svg>
+              TikTok
+            </a>
+          </div>
+        </div>
+
+        <div class="features-section">
+          <p class="features-label">Core Capabilities</p>
+          <div class="carousel-container">
+            <div class="marquee row-1">
+              <div class="marquee-content">
+                <span class="feature-pill"><span class="icon">💬</span> AI Conversations</span>
+                <span class="feature-pill"><span class="icon">📈</span> Track Progress</span>
+                <span class="feature-pill"><span class="icon">📊</span> Instant Feedback</span>
+                <span class="feature-pill"><span class="icon">💬</span> AI Conversations</span>
+                <span class="feature-pill"><span class="icon">📈</span> Track Progress</span>
+                <span class="feature-pill"><span class="icon">📊</span> Instant Feedback</span>
+              </div>
+            </div>
+            <div class="marquee row-2">
+              <div class="marquee-content">
+                <span class="feature-pill"><span class="icon">🔒</span> Privacy First</span>
+                <span class="feature-pill"><span class="icon">🎓</span> Interactive Coaching</span>
+                <span class="feature-pill"><span class="icon">⚡</span> Real-time Analysis</span>
+                <span class="feature-pill"><span class="icon">🔒</span> Privacy First</span>
+                <span class="feature-pill"><span class="icon">🎓</span> Interactive Coaching</span>
+                <span class="feature-pill"><span class="icon">⚡</span> Real-time Analysis</span>
+              </div>
+            </div>
+            <div class="marquee row-3">
+              <div class="marquee-content">
+                <span class="feature-pill"><span class="icon">🎯</span> Goal Setting</span>
+                <span class="feature-pill"><span class="icon">🎙️</span> Speech Analysis</span>
+                <span class="feature-pill"><span class="icon">🏆</span> Leaderboards</span>
+                <span class="feature-pill"><span class="icon">🎯</span> Goal Setting</span>
+                <span class="feature-pill"><span class="icon">🎙️</span> Speech Analysis</span>
+                <span class="feature-pill"><span class="icon">🏆</span> Leaderboards</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    Questions? Contact us at <a href="mailto:talkverity@gmail.com">talkverity@gmail.com</a>
+  </footer>
+
+  <!-- Success Modal -->
+  <div id="success-modal" class="modal-overlay">
+    <div class="modal-content tilt-card">
+      <h2 class="headline">Thank you for showing your interest.</h2>
+      <p class="sub-headline">You're officially on the list. We'll be in touch soon.</p>
+      <button id="close-modal" type="button" class="submit-btn">Close</button>
+    </div>
+  </div>
+
+  <button class="replay-btn" id="replay">Replay Animation</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <script type="module" src="script.js"></script>
+  <script>
+    const word = "VERITY";
+    const textContainer = document.getElementById('text');
+    let chars = [];
+
+    function setupChars() {
+      textContainer.innerHTML = '';
+      chars = [];
+      for (let i = 0; i < word.length; i++) {
+        const span = document.createElement('span');
+        span.innerText = word[i];
+        span.className = 'intro-char';
+        textContainer.appendChild(span);
+        chars.push(span);
+      }
+    }
+
+    let tl;
+
+    function playAnimation() {
+      // 1. Initial State resets
+      setupChars();
+      document.body.classList.add('intro-active');
+      gsap.set("#intro-overlay", { display: "flex", opacity: 1, backgroundColor: "#0b0f19" });
+      gsap.set(".replay-btn", { opacity: 0, pointerEvents: "none" });
+      gsap.set("#final-logo", { opacity: 0, scale: 0.5, rotation: -45, x: 0, y: 0 });
+      gsap.set(".top-nav", { opacity: 0 });
+      gsap.set(".page-wrapper", { opacity: 0 });
+      gsap.set(".site-footer", { opacity: 0 });
+      gsap.set(".brand-logo", { opacity: 0 });
+      gsap.set(".logo-text", { opacity: 0, x: -15 });
+
+      const radius = 125;
+      const startAngle = 30 * Math.PI / 180; // 4 o'clock
+      const targetX = Math.cos(startAngle) * radius;
+      const targetY = Math.sin(startAngle) * radius;
+
+      // Set initial state for characters in a horizontal row
+      const totalWidth = 200;
+      const initialPos = chars.map((char, i) => {
+        return {
+          x: (i - (chars.length - 1) / 2) * (totalWidth / (chars.length - 1)),
+          y: 0
+        };
+      });
+
+      chars.forEach((char, i) => {
+        gsap.set(char, { x: initialPos[i].x, y: initialPos[i].y, rotation: 0, opacity: 0, scale: 0.8 });
+      });
+
+      // Start circle invisible
+      gsap.set("#circle", { opacity: 0, scale: 0.8 });
+      gsap.set(textContainer, { rotation: 0 });
+
+      tl = gsap.timeline();
+
+      // 0. Fade in circle
+      tl.to("#circle", { duration: 1, opacity: 1, scale: 1, ease: "power2.out" }, 0);
+
+      // Fade in letters at center
+      tl.to(chars, { duration: 0.8, opacity: 1, scale: 1, stagger: 0.05, ease: "back.out(1.5)" }, 0.2);
+
+      tl.add("readingPause", "+=0.8");
+
+      // Circle fades out as animation starts
+      tl.to("#circle", { duration: 1.5, opacity: 0, scale: 1.1, ease: "power2.inOut" }, "readingPause+=0.2");
+
+      // 1. Vacuum pull to 4 o'clock and orbit
+      const state = { globalProgress: 0 };
+      const delayStep = 1 / chars.length;
+
+      tl.to(state, {
+        duration: 3.5,
+        globalProgress: 3.5,
+        ease: "power2.inOut",
+        onUpdate: () => {
+          chars.forEach((char, i) => {
+            // Delay based on reverse index so Y (last) starts first
+            const delay = (chars.length - 1 - i) * delayStep;
+            let p = state.globalProgress - delay;
+            if (p < 0) p = 0;
+
+            let x, y, rot;
+            if (p <= 1) {
+              // Pulled to 4 o'clock
+              const easeP = p * p; // quadratic ease in for the vacuum effect
+              x = initialPos[i].x + (targetX - initialPos[i].x) * easeP;
+              y = initialPos[i].y + (targetY - initialPos[i].y) * easeP;
+              rot = 120 * easeP; // 4 o'clock tangent is 120 deg
+            } else {
+              // Orbiting the circle
+              const angle = 30 + (p - 1) * 360;
+              x = Math.cos(angle * Math.PI / 180) * radius;
+              y = Math.sin(angle * Math.PI / 180) * radius;
+              rot = angle + 90;
+            }
+            gsap.set(char, { x, y, rotation: rot });
+          });
+        }
+      }, "readingPause");
+
+      // 2. Letters collapse into the center and fade out
+      tl.to(chars, {
+        duration: 0.8,
+        x: 0,
+        y: 0,
+        opacity: 0,
+        scale: 0.2,
+        rotation: "+=180",
+        ease: "power2.in"
+      });
+
+      // 3. V Logo appears
+      tl.to("#final-logo", {
+        duration: 1.2,
+        opacity: 1,
+        scale: 1,
+        rotation: 0,
+        ease: "elastic.out(1, 0.5)"
+      }, "-=0.4");
+
+      // 4. Fly to the top-left corner and fade in landing page
+      tl.add(() => {
+        const targetLogo = document.querySelector('.brand-logo');
+        const animatedLogo = document.getElementById('final-logo');
+        
+        const targetRect = targetLogo.getBoundingClientRect();
+        const animatedRect = animatedLogo.getBoundingClientRect();
+        
+        // Calculate the difference from the center of the screen
+        const currentCenterX = window.innerWidth / 2;
+        const currentCenterY = window.innerHeight / 2;
+        const targetCenterX = targetRect.left + (targetRect.width / 2);
+        const targetCenterY = targetRect.top + (targetRect.height / 2);
+        
+        const deltaX = targetCenterX - currentCenterX;
+        const deltaY = targetCenterY - currentCenterY;
+        const targetScale = targetRect.width / animatedRect.width;
+
+        const transTl = gsap.timeline({
+          onComplete: () => {
+            gsap.set(targetLogo, { opacity: 1 });
+            gsap.set('#intro-overlay', { display: 'none' });
+            document.body.classList.remove('intro-active');
+            gsap.set(".replay-btn", { opacity: 1, pointerEvents: "auto" });
+          }
+        });
+
+        // Fly the logo to the header position
+        transTl.to("#final-logo", {
+          duration: 1.5,
+          x: deltaX,
+          y: deltaY,
+          scale: targetScale,
+          ease: "power3.inOut"
+        }, 0);
+
+        // Fade out overlay bg smoothly
+        transTl.to("#intro-overlay", {
+          duration: 1.5,
+          backgroundColor: "rgba(11, 15, 25, 0)",
+          ease: "power3.inOut"
+        }, 0);
+
+        // Fade in landing page items
+        transTl.to(".top-nav", {
+          duration: 1.0,
+          opacity: 1,
+          ease: "power2.out"
+        }, 0.5);
+
+        transTl.to(".page-wrapper", {
+          duration: 1.2,
+          opacity: 1,
+          ease: "power2.out"
+        }, 0.5);
+
+        transTl.to(".site-footer", {
+          duration: 1.2,
+          opacity: 1,
+          ease: "power2.out"
+        }, 0.5);
+
+        // Slide/fade in the verity brand name next to the logo
+        transTl.to(".logo-text", {
+          duration: 0.8,
+          opacity: 1,
+          x: 0,
+          ease: "power2.out"
+        }, 1.0);
+      }, "+=0.3");
+    }
+
+    document.getElementById('replay').addEventListener('click', playAnimation);
+
+    // Start the animation on load
+    window.onload = playAnimation;
+  </script>
 </body>
 
 </html>
