@@ -577,6 +577,67 @@ body {
     }
 }
 
+/* Phone-specific styles */
+@media (max-width: 480px) {
+    .top-nav {
+        padding: 1rem;
+    }
+
+    .page-wrapper {
+        padding-top: 4rem;
+        padding-bottom: 3rem;
+    }
+
+    .headline {
+        font-size: 2rem;
+    }
+
+    .sub-headline {
+        max-width: 100%;
+    }
+
+    .waitlist-card {
+        padding: 1.5rem;
+    }
+
+    .right-pane {
+        padding: 2rem 1rem;
+    }
+
+    .socials-section {
+        margin-bottom: 2rem;
+    }
+
+    .site-footer {
+        position: relative;
+        padding: 1rem;
+    }
+
+    .modal-content {
+        margin: 1rem;
+        padding: 2rem 1.5rem;
+    }
+
+    .intro-container {
+        width: 80vw;
+        height: 80vw;
+    }
+
+    .intro-circle {
+        width: 60vw;
+        height: 60vw;
+    }
+
+    .intro-final-logo-wrapper {
+        width: 40vw;
+        height: 40vw;
+    }
+
+    .intro-char {
+        font-size: 8vw;
+    }
+}
+
 /* Success Modal */
 .modal-overlay {
     position: fixed;
