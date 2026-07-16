@@ -1,0 +1,29 @@
+{
+  "name": "waitlist",
+  "version": "1.0.0",
+  "description": "Verity - Waitlist Landing Page",
+  "main": "script.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/talk-verity/Waitlist.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/talk-verity/Waitlist/issues"
+  },
+  "homepage": "https://github.com/talk-verity/Waitlist#readme",
+  "dependencies": {
+    "@paper-design/shaders-react": "^0.0.77",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "vite": "^8.1.4"
+  }
+}

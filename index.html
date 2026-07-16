@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
 <script
   src="https://js.sentry-cdn.com/8385f7dd1aec0ed0f26cfae3c7a1bb4d.min.js"
   crossorigin="anonymous"
 ></script>
-    
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Waitlist - Verity</title>
@@ -19,6 +18,7 @@
 </head>
 
 <body>
+    <div id="bg-root"></div>
     <header class="top-nav fade-in-down">
         <div class="nav-logo">
             <!-- Drop your actual logo image into the folder and name it logo.png -->
@@ -28,10 +28,6 @@
     </header>
 
     <div class="page-wrapper">
-        <div class="background-glow glow-1 orb"></div>
-        <div class="background-glow glow-2 orb"></div>
-        <div class="background-glow glow-3 orb"></div>
-
         <main class="main-container">
 
             <!-- Left Pane: Waitlist -->
@@ -52,7 +48,7 @@
                         <p>Sign up now for early notification upon launch.</p>
                     </div>
                     <form id="waitlist-form" class="waitlist-form">
-                        <input type="email" id="email" placeholder="Enter your Email" required>
+                        <input type="tel" id="phone" placeholder="Enter your Phone Number" required>
                         <button type="submit" class="submit-btn magnetic">Join Waitlist</button>
                     </form>
                     <div id="success-message" class="success-message hidden">
@@ -128,7 +124,8 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
+    <script type="module" src="/main.jsx"></script>
 
     <!-- Success Modal -->
     <div id="success-modal" class="modal-overlay">

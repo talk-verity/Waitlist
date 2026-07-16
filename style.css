@@ -235,10 +235,13 @@ body {
     background: var(--card-bg);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    border: 1px solid var(--card-border);
+    border: 1px solid rgba(0, 0, 0, 0.8);
     border-radius: 1.5rem;
     padding: 2.5rem;
     box-shadow: var(--glass-shadow);
+    position: relative;
+    z-index: 1;
+    overflow: visible;
 }
 
 .waitlist-header h2 {
@@ -322,7 +325,7 @@ body {
     background: var(--card-bg);
     backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
-    border: 1px solid var(--card-border);
+    border: 1px solid rgba(0, 0, 0, 0.8);
     border-radius: 2rem;
     padding: 4rem 2rem;
     display: flex;
