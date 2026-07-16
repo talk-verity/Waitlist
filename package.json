@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && (cp config.js dist/config.js || true)",
     "preview": "vite preview"
   },
   "repository": {
